@@ -14,6 +14,17 @@ export const createProduct = async(req,res)=>{
         res.status(500).json({success:false,message:'server error'});
     }
 }
+
+export const readProduct = async(req,res)=>{
+    try {
+       const data = await Product.find({}) 
+       res.status(200).json({success:true,data:data})
+    } catch (error) {
+        console.log('Error in getProduct section',error.message.toString());
+        res.status(500).json({success:false,message:'server error'});
+    }
+}
+
 export const updateProduct = async(req,res)=>{
     const {id}=req.params
     const updatedData = req.body
@@ -22,9 +33,9 @@ export const updateProduct = async(req,res)=>{
     }
     try {
         await Product.findByIdAndUpdate(id,updatedData,{new:true})
-        res.status(200).json({success:true,data:updatedData})
+        res.status(201).json({success:true,data:updatedData})
     } catch (error) {
-        console.log('Error in delete product section',error.message.toString());
+        console.log('Error in update product section',error.message.toString());
         return res.status(500).json({success:false,message:'server error'})
     }
 }
