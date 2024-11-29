@@ -14,6 +14,20 @@ export const createProduct = async(req,res)=>{
         res.status(500).json({success:false,message:'server error'});
     }
 }
+export const updateProduct = async(req,res)=>{
+    const {id}=req.params
+    const updatedData = req.body
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({success:false,message:'product not found'})
+    }
+    try {
+        await Product.findByIdAndUpdate(id,updatedData,{new:true})
+        res.status(200).json({success:true,data:updatedData})
+    } catch (error) {
+        console.log('Error in delete product section',error.message.toString());
+        return res.status(500).json({success:false,message:'server error'})
+    }
+}
 
 export const deleteProduct = async(req,res)=>{
     const {id} = req.params
