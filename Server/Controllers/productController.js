@@ -33,7 +33,7 @@ export const updateProduct = async(req,res)=>{
     }
     try {
         await Product.findByIdAndUpdate(id,updatedData,{new:true})
-        res.status(201).json({success:true,data:updatedData})
+        res.status(201).json({success:true,data:updatedData,message:'product updated'})
     } catch (error) {
         console.log('Error in update product section',error.message.toString());
         return res.status(500).json({success:false,message:'server error'})
@@ -47,7 +47,7 @@ export const deleteProduct = async(req,res)=>{
     }
     try {
         await Product.findByIdAndDelete(id)
-        res.status(200).json({success:true,message:'product deleted successful'})
+        res.status(200).json({success:true,message:'product deleted successfully'})
     } catch (error) {
         console.log('Error in delete product section',error.message.toString());
         return res.status(500).json({success:false,message:'server error'})
